@@ -36,7 +36,7 @@ Player succesfuly makes it to extraction plays win cutscene.
 ## 🌍 Environment
 As large as a forest as can be reasonably made and filled.  
 NavMesh baked for AI pathing.  
-trees, rocks and abandoned structures have colliders.  
+Trees, rocks and abandoned structures have colliders.  
 
 ## 🧪 Physics Scope
 Rigidbody on player(s) and enemies.  
@@ -55,21 +55,20 @@ Debug overlay that prints current states for grading.
 Player survives by keeping their hit points above 0, which requires consuming food and water as well as avoiding danger.  
 Player can obtain a firearm and a knife to protect themselves, eliminating enemies from range or having easier quick time events at close range.  
 Player wins by extracting after collecting all Objective items that point towards an extraction point.  
-
 Object tagging Weapon, Consumable, Objective
 Camera first person.  
 Audio cues of danger nearby with intense "battle" music or enemy sounds.  
 VFX blood when the player takes damage, effects on the horror elemnts time permitting.  
 
 ## 🎮 Controls (proposed)
-W A S D move  
-Shift sprint
-Mouse look  
-Space jump  
-F interact pick up, open and close door  
-Left Mouse shoot  
-Right Mouse aim down sights  
-Esc pause  
+W A S D move.  
+Shift sprint.  
+Mouse look.  
+Space jump.  
+F interact pick up, open and close door.  
+Left Mouse shoot.  
+Right Mouse aim down sights.  
+Esc pause.  
 
 ## 📂 Project Setup aligned to course topics
 Unity 6.0 (6000.0.58f1 LTS).  
