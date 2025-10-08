@@ -139,7 +139,7 @@ public class PlayerController : MonoBehaviour
 
     private void StateHandler()
     {
-        if (isCrouching)
+        if (grounded && isCrouching)
         {
             state = MovementState.crouching;
             speed = crouchSpeed;
