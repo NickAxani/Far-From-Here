@@ -104,16 +104,16 @@ in air - not grounded
 
 # Enemy states
 Roaming - chooses random nearby place and moves towards that point  
-	spots player -> Chasing  
+&emsp;	spots player -> Chasing  
 Chasing - runs toward player targeted  
-	stops seeing player -> Searching  
-	within attack range -> Attacking  
+&emsp;	stops seeing player -> Searching  
+&emsp;	within attack range -> Attacking  
 Attacking - attacks player targeted  
-	stops seeing player -> Searching  
-	player becomes out of attack range -> Chasing  
+&emsp;	stops seeing player -> Searching  
+&emsp;	player becomes out of attack range -> Chasing  
 Searching - looks for player where last seen  
-	spots player -> Chasing  
-	5 seconds pass -> Roaming  
+&emsp;	spots player -> Chasing  
+&emsp;	5 seconds pass -> Roaming  
 	
 # Video
 https://youtu.be/_wegZtQQRfU
