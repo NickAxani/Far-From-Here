@@ -12,7 +12,8 @@ public class EnemyController : MonoBehaviour
     public float hitpoints;
     public float damage;
     public float fov;
-    public float sightRange;
+    public float sightRange; // range in front of enemy
+    public float radiusSight; //radius around enemy where it can see if player is near
     public float attackRange; //range enemy can reach player
     public float attackRangeOffset;  //how much closer then max range should enemy get before attacking
 
@@ -24,6 +25,8 @@ public class EnemyController : MonoBehaviour
     private Transform currentTarget;
     private Vector3 lastSeen;
     private Vector3 currentRoamTarget;
+
+    public GameObject sight;
 
     //for debug
     public PlayerController player;
@@ -139,12 +142,13 @@ public class EnemyController : MonoBehaviour
 
     private void Searching()
     {
-
         if (!stopSearchQueued)
         {
+            
             if (lastSeen != Vector3.zero)
             {
-                if (transform.position != lastSeen)
+                float distanceToLastSeen = Vector3.Distance(transform.position, lastSeen);
+                if (distanceToLastSeen < 0.2f)
                 {
                     nav.SetDestination(lastSeen);
                 }
@@ -185,16 +189,30 @@ public class EnemyController : MonoBehaviour
     private void FieldOfViewCheck()
     {
         Collider[] rangeChecks = Physics.OverlapSphere(transform.position, sightRange, LayerMask.GetMask("Player"));
-
+        
         if (rangeChecks.Length > 0)
         {
             Transform target = rangeChecks[0].transform;
             Vector3 directionToTarget = (target.position - transform.position).normalized;
+            float distanceToTarget = Vector3.Distance(transform.position, target.position);
 
-            if (Vector3.Angle(transform.position, directionToTarget) < transform.rotation.eulerAngles.y + fov / 2 && !Physics.Raycast(transform.position, directionToTarget, sightRange, LayerMask.GetMask("whatIsGround")))
+            if (!Physics.Raycast(transform.position, directionToTarget, distanceToTarget, LayerMask.GetMask("whatIsGround")))
             {
-                currentTarget = target;
-                state = EnemyState.Chasing;
+                if (distanceToTarget < radiusSight)
+                {
+                    currentTarget = target;
+                    state = EnemyState.Chasing;
+                }
+                else if (Vector3.Angle(transform.forward, directionToTarget) < fov / 2)
+                {
+                    
+                    currentTarget = target;
+                    state = EnemyState.Chasing;
+                }
+                else
+                {
+                    currentTarget = null;
+                }
             }
             else
             {
@@ -231,13 +249,13 @@ public class EnemyController : MonoBehaviour
             Vector3 dir = canvas.transform.position - player.transform.position;
             canvas.transform.rotation = Quaternion.LookRotation(dir);
 
-
-            Debug.DrawRay(transform.position, transform.TransformDirection(Quaternion.AngleAxis(fov / 2, Vector3.up) * Vector3.forward) * sightRange, Color.yellow);
-            Debug.DrawRay(transform.position, transform.TransformDirection(Quaternion.AngleAxis(-fov / 2,Vector3.up) * Vector3.forward) * sightRange, Color.yellow); 
+            sight.SetActive(true);
         }
         else
         {
             text.text = "";
+
+            sight.SetActive(false);
         }
     }
 }

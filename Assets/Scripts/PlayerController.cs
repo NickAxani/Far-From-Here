@@ -49,9 +49,11 @@ public class PlayerController : MonoBehaviour
     public MovementState state;
     public enum MovementState
     {
+        idle,
         walking,
         sprinting,
         crouching,
+        crouchwalking,
         air
     }
 
@@ -139,22 +141,39 @@ public class PlayerController : MonoBehaviour
 
     private void StateHandler()
     {
-        if (grounded && isCrouching)
+        if (grounded)
         {
-            state = MovementState.crouching;
-            speed = crouchSpeed;
-        }
+            if (rb.linearVelocity.x != 0 && rb.linearVelocity.z != 0)
+            {
+                if (isCrouching)
+                {
+                    state = MovementState.crouchwalking;
+                    speed = crouchSpeed;
+                }
 
-        else if (grounded && Input.GetKey(sprintKey))
-        {
-            state = MovementState.sprinting;
-            speed = sprintSpeed;
-        }
+                else if (Input.GetKey(sprintKey))
+                {
+                    state = MovementState.sprinting;
+                    speed = sprintSpeed;
+                }
+                else
+                {
+                    state = MovementState.walking;
+                    speed = walkSpeed;
+                }
 
-        else if (grounded)
-        {
-            state = MovementState.walking;
-            speed = walkSpeed;
+            }
+            else if (isCrouching)
+            {
+                state = MovementState.crouching;
+                speed = crouchSpeed;
+            }
+            else
+            {
+                state = MovementState.idle;
+                speed = walkSpeed;
+            }
+            
         }
 
         else

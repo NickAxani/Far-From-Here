@@ -1,3 +1,5 @@
+#A1
+
 # Far From Here
 
 ## 📌 Overview
@@ -78,3 +80,40 @@ Animator controllers for player and enemies with parameters speed, isAttacking, 
 Physics materials and layers configured in Project Settings.  
 GitHub Classroom repository with regular commits and meaningful messages.  
 Readme and in game debug UI showing FPS, state names, and safety meter for assessment.  
+
+
+# A2
+
+# Controls
+W A S D for movement
+mouse to look around (first person)
+left shift to sprint (hold)
+space to jump
+left ctrl to crouch (toggle)
+f3 for debug mode
+
+# Player states (Not traditional FSM since it's not states with transitions, rather states in a checklist order)
+used for speed and to be used for animation, ordered in check order
+
+crouchwalking - grounded + crouched + moving
+sprinting - grounded + sprint key + moving
+walking - grounded + moving
+crouching - grounded + crouched + not moving
+idle - grounded + not moving
+in air - not grounded
+
+#Enemy states
+Roaming - chooses random nearby place and moves towards that point
+	spots player -> Chasing
+Chasing - runs toward player targeted
+	stops seeing player -> Searching
+	within attack range -> Attacking
+Attacking - attacks player targeted
+	stops seeing player -> Searching
+	player becomes out of attack range -> Chasing
+Searching - looks for player where last seen
+	spots player -> Chasing
+	5 seconds pass -> Roaming
+	
+#Video
+https://youtu.be/_wegZtQQRfU

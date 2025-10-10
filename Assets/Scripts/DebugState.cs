@@ -18,6 +18,9 @@ public class DebugState : MonoBehaviour
         }
         switch (player.state)
             {
+                case PlayerController.MovementState.idle:
+                    state = "idle";
+                    break;
                 case PlayerController.MovementState.walking:
                     state = "walking";
                     break;
@@ -26,6 +29,9 @@ public class DebugState : MonoBehaviour
                     break;
                 case PlayerController.MovementState.crouching:
                     state = "crouching";
+                    break;
+                case PlayerController.MovementState.crouchwalking:
+                    state = "crouch walking";
                     break;
                 case PlayerController.MovementState.air:
                     state = "in the air";
