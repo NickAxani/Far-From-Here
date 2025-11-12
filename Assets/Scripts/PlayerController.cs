@@ -1,4 +1,6 @@
+using System.Collections;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class PlayerController : MonoBehaviour
 {
@@ -45,6 +47,8 @@ public class PlayerController : MonoBehaviour
     Rigidbody rb;
     float horizInput;
     float vertInput;
+    public GameObject[] inventory;
+    public GameObject inHand;
 
     public MovementState state;
     public enum MovementState
@@ -69,6 +73,40 @@ public class PlayerController : MonoBehaviour
         canCrouch = true;
         isCrouching = false;
         startYScale = transform.localScale.y;
+
+        inventory = new GameObject[5];
+        for (int i = 0; i < inventory.Length; i++)
+        {
+            GameObject emptySlot = new GameObject("EmptySlot_" + i);
+            emptySlot.transform.SetParent(gameObject.transform);
+            emptySlot.AddComponent<nullItem>();
+            inventory[i] = emptySlot;
+        }
+
+
+        //temp objects
+        GameObject compassObj = new GameObject("Compass");
+        compassObj.AddComponent<compass>();
+        add_Item(compassObj, 0);
+
+        GameObject gunObj = new GameObject("Gun");
+        gunObj.AddComponent<gun>();
+        add_Item(gunObj, 1);
+
+        GameObject gpsObj = new GameObject("GPS");
+        gpsObj.AddComponent<gps>();
+        add_Item(gpsObj, 2);
+
+        GameObject radioObj = new GameObject("Radio");
+        radioObj.AddComponent<radio>();
+        add_Item(radioObj, 3);
+
+        GameObject foodObj = new GameObject("Food");
+        foodObj.AddComponent<food>();
+        add_Item(foodObj, 4);
+
+        inHand = inventory[0];
+        
     }
 
     private void Update()
@@ -94,6 +132,17 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         MovePlayer();
+    }
+
+    private void add_Item(GameObject item, int slot)
+    {
+        if (inHand == inventory[slot])
+        {
+            inHand = item;
+        }
+        Destroy(inventory[slot]);
+        inventory[slot] = item;
+        item.transform.SetParent(gameObject.transform);
     }
 
     private void GetInput()
@@ -132,6 +181,37 @@ public class PlayerController : MonoBehaviour
         {
             inDebug = !inDebug;
         }
+
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            inHand = inventory[0];
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            inHand = inventory[1];
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            inHand = inventory[2];
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            inHand = inventory[3];
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha5))
+        {
+            inHand = inventory[4];
+        }
+
+        if (inHand != null && Input.GetMouseButtonDown(0))
+        {
+            inHand.GetComponent<Item>().Left(gameObject);
+        }
+        else if (inHand != null && Input.GetMouseButtonDown(1))
+        {
+            inHand.GetComponent<Item>().Right(gameObject);
+        }
+
     }
 
     private void resetCrouch()
@@ -249,5 +329,37 @@ public class PlayerController : MonoBehaviour
     private Vector3 GetSlopeMoveDirection()
     {
         return Vector3.ProjectOnPlane(moveDirection, slopeHit.normal).normalized;
+    }
+
+    public void shoot()
+    {
+        //raycast
+        //on hit
+        //create sound collider
+        create_sound_collider(100);
+    }
+
+    private void create_sound_collider(float size)
+    {
+
+        GameObject soundObj = new GameObject("SoundCollider");
+        soundObj.transform.position = transform.position;
+        soundObj.transform.parent = null;
+
+        SphereCollider col = soundObj.AddComponent<SphereCollider>();
+        col.isTrigger = true;
+        col.radius = size;
+
+        int layer = LayerMask.NameToLayer("Sound");
+        if (layer != -1)
+            soundObj.layer = layer;
+
+        StartCoroutine(destroy_sound_collider(soundObj));
+    }
+    
+    IEnumerator destroy_sound_collider(GameObject pulse)
+    {
+        yield return new WaitForSeconds(0.1f);
+        Destroy(pulse);
     }
 }

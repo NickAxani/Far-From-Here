@@ -117,3 +117,35 @@ Searching - looks for player where last seen
 	
 # Video
 https://youtu.be/_wegZtQQRfU
+
+# A3
+
+# New Controls
+1-5 for inventory items 
+left and right mouse buttons for item in hand action 
+
+# Changes
+Enemy has hearing that allows them to detect sounds emmitted by player and search the location of the source 
+Items can now be added through a gameobject with a script of type that has a left and right action 
+Player has an inventory that can be selected through the number keys 
+Compass gives player direction 
+GPS gives player coordinates 
+Gun shoots (currently only makes sound for enemies to "hear") 
+
+# Enemy states
+Roaming - chooses random nearby place and moves towards that point  
+&emsp;	spots player -> Chasing  
+&emsp;	hears sound -> Searches at location of sound 
+Chasing - runs toward player targeted  
+&emsp;	stops seeing player -> Searching  
+&emsp;	within attack range -> Attacking  
+Attacking - attacks player targeted  
+&emsp;	stops seeing player -> Searching  
+&emsp;	player becomes out of attack range -> Chasing  
+Searching - looks for player where last seen 
+&emsp;	hears sound -> Searches at location of sound   
+&emsp;	spots player -> Chasing  
+&emsp;	5 seconds pass -> Roaming  
+
+#Video
+https://youtu.be/2Qd3tXmNfAA
