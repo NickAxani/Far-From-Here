@@ -147,5 +147,5 @@ Searching - looks for player where last seen
 &emsp;	spots player -> Chasing  
 &emsp;	5 seconds pass -> Roaming  
 
-#Video
+# Video
 https://youtu.be/2Qd3tXmNfAA
