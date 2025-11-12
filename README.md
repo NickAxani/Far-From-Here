@@ -135,7 +135,7 @@ Gun shoots (currently only makes sound for enemies to "hear")
 # Enemy states (added roaming and search state changes for sound)
 Roaming - chooses random nearby place and moves towards that point  
 &emsp;	spots player -> Chasing  
-&emsp;	hears sound -> Searches at location of sound 
+&emsp;	hears sound -> Searches at location of sound   
 Chasing - runs toward player targeted  
 &emsp;	stops seeing player -> Searching  
 &emsp;	within attack range -> Attacking  
