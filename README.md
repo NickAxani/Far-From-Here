@@ -121,16 +121,16 @@ https://youtu.be/_wegZtQQRfU
 # A3
 
 # New Controls
-1-5 for inventory items 
+1-5 for inventory items   
 left and right mouse buttons for item in hand action 
 
 # Changes
-Enemy has hearing that allows them to detect sounds emmitted by player and search the location of the source 
-Items can now be added through a gameobject with a script of type that has a left and right action 
-Player has an inventory that can be selected through the number keys 
-Compass gives player direction 
-GPS gives player coordinates 
-Gun shoots (currently only makes sound for enemies to "hear") 
+Enemy has hearing that allows them to detect sounds emmitted by player and search the location of the source   
+Items can now be added through a gameobject with a script of type that has a left and right action   
+Player has an inventory that can be selected through the number keys   
+Compass gives player direction   
+GPS gives player coordinates   
+Gun shoots (currently only makes sound for enemies to "hear")   
 
 # Enemy states (added roaming and search state changes for sound)
 Roaming - chooses random nearby place and moves towards that point  
