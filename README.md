@@ -132,7 +132,7 @@ Compass gives player direction
 GPS gives player coordinates 
 Gun shoots (currently only makes sound for enemies to "hear") 
 
-# Enemy states
+# Enemy states (added roaming and search state changes for sound)
 Roaming - chooses random nearby place and moves towards that point  
 &emsp;	spots player -> Chasing  
 &emsp;	hears sound -> Searches at location of sound 
@@ -142,7 +142,7 @@ Chasing - runs toward player targeted
 Attacking - attacks player targeted  
 &emsp;	stops seeing player -> Searching  
 &emsp;	player becomes out of attack range -> Chasing  
-Searching - looks for player where last seen 
+Searching - looks for player where last seen   
 &emsp;	hears sound -> Searches at location of sound   
 &emsp;	spots player -> Chasing  
 &emsp;	5 seconds pass -> Roaming  
